@@ -16,14 +16,15 @@ import os, sys, subprocess, time, re
 
 PYTHON3 = sys.version_info[0] == 3
 DEBUG=False
+INTERACTIVE=False
 VERSION = "0.2"
 USAGE   = """
-Usage: btrfsmaint.py [-d] [-i] [--test] [ <filesystem> [<filesystem>...]| -a ]
+Usage: btrfsmaint.py [-d] [-i] [-t] ( <filesystem> [<filesystem>...]| -a )
 
   -? --help       show this
   -d              debug printout
   -i              Interactive
-  --test          Only test and show what would have happened.
+  -t              Only test and show what would have happened.
   -a              Run for all Filesystems
   <filesystem>    Mountpoint of the BTRFS filesystem.
 """
@@ -168,7 +169,17 @@ def LoggerRun(cmd):
     def logmessage(msg):
         
         return True
-    print("UNIMPLEMENTED")
+    print("UNIMPLEMENTED: %s" % cmd)
+    return True
+
+def TestRun(cmd):
+    '''
+    run 'cmd', log important messages
+    '''
+    def logmessage(msg):
+        
+        return True
+    print("WOULD: %s" % cmd)
     return True
 
 def locateBtrfs():
@@ -176,6 +187,7 @@ def locateBtrfs():
     local all BTRFS filesystems
     '''
     retval = []
+    filesystems = {}
     
     contents = open("/proc/mounts", "r").read()
     for x in contents.split("\n"):
@@ -184,8 +196,14 @@ def locateBtrfs():
         if len(f) < 3: continue
         if f[2] != 'btrfs': continue
         if f[1] in retval: continue
-        retval.append(f[0])
+        try:
+            filesystems[f[0]].append(f[1])
+        except KeyError:
+            filesystems[f[0]] = [ f[1], ]
+            pass
         continue
+
+    retval = [ filesystems[x][0] for x in filesystems.keys() ]
     return retval
 
 def Maintain(fs):
@@ -233,18 +251,27 @@ def Maintain(fs):
     return True
 
 def Main():
-    global DEBUG, run
+    global DEBUG, run, INTERACTIVE
+    
     args = docopt(USAGE, help=True, version='BTRFS Maintainer - %s' % VERSION)
-    print (args)
+    
     if args['-d']:
         DEBUG=True
         pass
     
     if args['-i']:
+        INTERACTIVE=True
         run = InteractiveRun
     else:
+        INTERACTIVE=False
         run = LoggerRun
         pass
+
+    ## -t is the final arbiter - Cliff warned me that docopt was inflexible.
+    if args['-t']:
+        run = TestRun
+
+    debug(args)
 
     if args['-a']:
         # locate filesystems
