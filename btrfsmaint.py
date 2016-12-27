@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
-# btrfsmaint.py -- periodic maintenance for btrfs filesystems
-# Copyright(c) 2016 Joshua M. Schmidlkofer
-## joshland@protonmail.com
 ##
-## based upon Marc MERLIN's `btrfscrub.sh`
+# btrfsmaint.py -- periodic maintenance for btrfs filesystems
+# Copyright(c) 2016 Joshua M. Schmidlkofer <joshland@protonmail.com>
+# Released under GPLv2.0 (See LICENSE for details)
+##
 
 from __future__ import absolute_import
 from __future__ import division
