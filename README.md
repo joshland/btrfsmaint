@@ -20,6 +20,15 @@ Library Dependencies
 
  - [Docopt](http://docopt.org/)
 
+TODO
+----
+
+ - Use Logging
+ - Perhaps a mutex of some sort or locking like unto shlock
+ - Write `setup.py` for python distribute compat.
+ - Make some default scripts - cron, systemd, etc.
+ 
+
 
 Files
 -----
@@ -28,5 +37,7 @@ Files
 ├── btrfsmaint.py      # btrfsmaint script
 ├── btrfstest.py       # function test script.
 ├── README.md          # This File
+├── LICENSE            # GPL v2.0
+├── Copyright          # Copyright Statement
 └── tests/             # Test output.
 ```
