@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
-# btrsmaint.py
+# btrfsmaint.py -- periodic maintenance for btrfs filesystems
 # Copyright(c) 2016 Joshua M. Schmidlkofer
 ## joshland@protonmail.com
+##
+## based upon Marc MERLIN's `btrfscrub.sh`
 
 from __future__ import absolute_import
 from __future__ import division
@@ -15,9 +17,9 @@ import multiprocessing
 
 PYTHON3 = sys.version_info[0] == 3
 DEBUG=False
-VERSION = "0.01"
+VERSION = "0.2"
 USAGE   = """
-Usage: btrfsmaint.py [-d] [-i] [--test] [ <filesystem> | -a ]
+Usage: btrfsmaint.py [-d] [-i] [--test] [ <filesystem> [<filesystem>...]| -a ]
 
   -? --help       show this
   -d              debug printout
@@ -170,21 +172,27 @@ def LoggerRun(cmd):
     print("UNIMPLEMENTED")
     return True
 
-def Main():
-    global DEBUG
-    args = docopt(USAGE, help=True, version='BTRFS Maintainer - %s' % VERSION)
+def locateBtrfs():
+    '''
+    local all BTRFS filesystems
+    '''
+    retval = []
     
-    if args['-d']:
-        DEBUG=True
-        pass
-    
-    if args['-i']:
-        run = InteractiveRun
-    else:
-        run = LoggerRun
+    contents = open("/proc/mounts", "r").read()
+    for x in contents.split("\n"):
+        if x.find(" btrfs ") < 0: continue
+        f = x.split(" ")
+        if len(f) < 3: continue
+        if f[2] != 'btrfs': continue
+        if f[1] in retval: continue
+        retval.append(f[0])
+        continue
+    return retval
 
-    fs = args['<filesystem>']
-
+def Maintain(fs):
+    '''
+    execute maintenance steps for [fs]
+    '''
     for x in range(2):
         scrubrun = _btrfsScrubStatus(fs)
         if ScrubIsRunning(scrubrun):
@@ -223,7 +231,33 @@ def Main():
     #logger -s "Starting scrub of $mountpoint" >&2
     #echo btrfs scrub start -Bd $mountpoint
     run("ionice -c 3 nice -10 btrfs scrub start -Bd %s" % fs)
+    return True
+
+def Main():
+    global DEBUG, run
+    args = docopt(USAGE, help=True, version='BTRFS Maintainer - %s' % VERSION)
+    print (args)
+    if args['-d']:
+        DEBUG=True
+        pass
     
+    if args['-i']:
+        run = InteractiveRun
+    else:
+        run = LoggerRun
+        pass
+
+    if args['-a']:
+        # locate filesystems
+        fslist = locateBtrfs()
+    else:
+        fslist = args['<filesystem>']
+        pass
+    
+    for fs in fslist:
+        Maintain(fs)
+        continue
+
     return True
 
 if __name__ == "__main__":

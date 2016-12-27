@@ -1,0 +1,3 @@
+scrub status for 5767f8ac-202c-46ab-ae8e-64df94f684a4
+	scrub started at Mon Dec 26 18:07:01 2016 and finished after 00:00:34
+	total bytes scrubbed: 51.37GiB with 0 errors

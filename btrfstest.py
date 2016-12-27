@@ -2,7 +2,7 @@
 
 import sys, os
 import btrfsmaint
-from btrfsmaint import ScrubIsRunning
+from btrfsmaint import ScrubIsRunning, locateBtrfs
 
 btrfsmaint.DEBUG = True
 
@@ -20,7 +20,13 @@ def runTests():
         
         continue
 
+    return True
+
+def checkMount():
+    ''' test locateBtrfs '''
+    print(locateBtrfs())
 
 if __name__ == "__main__":
     runTests()
+    checkMount()
     sys.exit(0)
