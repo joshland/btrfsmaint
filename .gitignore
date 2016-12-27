@@ -1,0 +1,17 @@
+\#*
+.\#*
+*~
+.git
+*.pyc
+*.swp
+.*.swp
+.vagrant
+*.stock
+id_rsa
+id_dsa
+id_ed25519
+id_rsa.pub
+id_dsa.pub
+id_ed25519.pub
+.DS_Store
+

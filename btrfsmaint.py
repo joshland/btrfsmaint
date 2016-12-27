@@ -13,7 +13,6 @@ from __future__ import unicode_literals
 
 from docopt import docopt
 import os, sys, subprocess, time, re
-import multiprocessing
 
 PYTHON3 = sys.version_info[0] == 3
 DEBUG=False
