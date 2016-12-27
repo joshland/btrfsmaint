@@ -6,14 +6,16 @@ from btrfsmaint import ScrubIsRunning
 
 btrfsmaint.DEBUG = True
 
+testspath = "./tests"
+
 def runTests():
-    for x in os.listdir('.'):
-        if x.find('btrfsmaint-test') == -1: continue
-        if x.find('true') >= 0:
-            print ("Expect: True\n  %s" % ScrubIsRunning(open(x, 'r').read()))
+    for filename in os.listdir(testspath):
+        testfile = os.path.join(testspath, filename)
+        if filename.find('true') >= 0:
+            print ("Expect: True\n  %s" % ScrubIsRunning(open(testfile, 'r').read()))
             continue
-        if x.find('false') >= 0:
-            print ("Expect: False\n  %s" % (ScrubIsRunning(open(x, 'r').read())))
+        if filename.find('false') >= 0:
+            print ("Expect: False\n  %s" % (ScrubIsRunning(open(testfile, 'r').read())))
             continue
         
         continue

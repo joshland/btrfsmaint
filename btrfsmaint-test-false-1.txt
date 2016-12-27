@@ -1,4 +1,0 @@
-scrub status for dab8556a-07b3-4f7c-a4cd-9846a5c27c18
-	no stats available
-	total bytes scrubbed: 0.00B with 0 errors
-

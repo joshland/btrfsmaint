@@ -1,3 +1,0 @@
-scrub status for 84c82a34-0f44-4b1d-bc3e-7303f791b3ad
-	scrub started at Wed Nov 23 15:27:20 2016 and was aborted after 05:45:47
-	total bytes scrubbed: 20.12TiB with 0 errors
