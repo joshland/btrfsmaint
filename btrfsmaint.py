@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 
-##
 # btrfsmaint.py -- periodic maintenance for btrfs filesystems
 # Copyright(c) 2016 Joshua M. Schmidlkofer <joshland@protonmail.com>
 # Released under GPLv2.0 (See LICENSE for details)
-##
 
 from __future__ import absolute_import
 from __future__ import division
@@ -17,7 +15,7 @@ import os, sys, subprocess, time, re
 PYTHON3 = sys.version_info[0] == 3
 DEBUG=False
 INTERACTIVE=False
-VERSION = "0.2"
+VERSION = "0.3"
 USAGE   = """
 Usage: btrfsmaint.py [-d] [-i] [-t] ( <filesystem> [<filesystem>...]| -a )
 
@@ -169,7 +167,7 @@ def LoggerRun(cmd):
     def logmessage(msg):
         
         return True
-    print("UNIMPLEMENTED: %s" % cmd)
+    print("UNIMPLEMENTED (use -i): %s" % cmd)
     return True
 
 def TestRun(cmd):
