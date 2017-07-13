@@ -18,16 +18,13 @@ Compatibility
 Library Dependencies
 --------------------
 
- - [Docopt](http://docopt.org/)
+ - [Click](http://click.pocoo.org)
 
 TODO
 ----
 
- - Use Logging
  - Perhaps a mutex of some sort or locking like unto shlock
- - Write `setup.py` for python distribute compat.
  - Make some default scripts - cron, systemd, etc.
- 
 
 
 Files

@@ -14,7 +14,7 @@ from logging.handlers import SysLogHandler
 PYTHON3 = sys.version_info[0] == 3
 DEBUG   = False
 _log    = None
-VERSION = "0.4"
+VERSION = "0.5"
 USAGE   = """
 Usage: btrfsmaint.py [-d] [-i] [-t] ( <filesystem> [<filesystem>...]| -a )
 
@@ -279,9 +279,9 @@ def Main(ctx, silent, test, allfs, scrub, filesystems, debug):
     outh.setFormatter(logfmt)
     
     if len(filesystems) == 0 and not allfs:
-        click.Echo("You must either use '-a' or specify a filesystem.")
-        click.Echo("")
-        click.Echo(ctx.get_help())
+        click.echo("You must either use '-a' or specify a filesystem.")
+        click.echo("")
+        click.echo(ctx.get_help())
         exit()
         
     if test:
