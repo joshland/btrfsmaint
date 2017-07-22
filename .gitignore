@@ -17,3 +17,4 @@ id_ed25519.pub
 
 *.egg-info
 dist/
+venv/
