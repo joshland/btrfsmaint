@@ -1,13 +1,18 @@
 from setuptools import setup
 
+def readme():
+    with open('README.rst') as f:
+        return f.read()
+    
 setup(
+    version="0.5.2",
     name="btrfsmaint",
     description='BTRFS Filesystem Maintenace Scripts.',
-    long_description='BTRFS Filesystem Maintenance Script for local btrfs filesystem upkeep.',
+    long_description=readme(),
     url='https://github.com/joshland/btrfsmaint',
     author='Joshua M. Schmidlkofer',
     author_email='joshland@gmail.com',
-    license='MIT',
+    license='Apache 2.0',
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: System Administrators',
@@ -21,12 +26,12 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
     ],
-    version="0.5",
     install_requires=[
         "click",
     ],
     keywords='btrfs maintenance administration',
     packages=['btrfsmaint'],
+    platforms=['any'],
     entry_points={
         'console_scripts': [
             'btrfsmaint=btrfsmaint:Main',

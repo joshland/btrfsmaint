@@ -6,7 +6,26 @@ This is a quick project based upon Marc MERLIN's [`btrfscrub.sh`](http://marc.me
 Installation
 ------------
 
-Download the script, place in /usr/local/bin, setup a monthly cronjob to execute the script.
+`pip install btrfsmaint`
+
+
+Usage
+-----
+
+#### Single Drive
+
+Run a quick maintenance without a scrub on /home.
+
+    btrfsmaint --no-scrub /home
+	
+Run quick maintanance on all BTRFS volumes currently mounted.
+
+    btrfsmaint --no-scrub -a
+	
+Run via crontab, all mounted BTRFS volumes with scrub.
+
+      0  0  *  *  * root       /usr/bin/btrfsmaint -a
+
 
 Compatibility
 -------------
@@ -30,11 +49,20 @@ TODO
 Files
 -----
 ```
-├── btrfscrub.sh       # Reference Copy of Marc MERLIN's Script (Apache 2.0 License)
-├── btrfsmaint.py      # btrfsmaint script
+├── btrfscrub.sh
+├── btrfsmaint
+│   └── __init__.py    # btrfsmaint contents.
 ├── btrfstest.py       # function test script.
-├── README.md          # This File
-├── LICENSE            # GPL v2.0
+├── LICENSE            # Apache2.0 License stub
+├── MANIFEST.in        # distribute package manifest.
+├── README.md          # This File.
+├── README.rst         # ReST-rendered version of the md.
+├── requirements.txt   # pip requirements file.
+├── script
+│   ├── mkdocs.py      # Publish README.md -> README.rst (required pypandoc, pandoc)
+│   └── runtest.sh     # Mutli-py version test script.
+├── setup.cfg          # distribute packaging helper.
+├── setup.py           # build script.
 ├── Copyright          # Copyright Statement
 └── tests/             # Test output.
 ```

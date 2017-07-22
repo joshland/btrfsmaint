@@ -14,7 +14,7 @@ from logging.handlers import SysLogHandler
 PYTHON3 = sys.version_info[0] == 3
 DEBUG   = False
 _log    = None
-VERSION = "0.5"
+VERSION = "0.5.2"
 USAGE   = """
 Usage: btrfsmaint.py [-d] [-i] [-t] ( <filesystem> [<filesystem>...]| -a )
 
